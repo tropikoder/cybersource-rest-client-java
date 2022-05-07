@@ -302,6 +302,9 @@ public class ApiClient {
 		}
 		else
 		{
+			loggingInterceptor = new HttpLoggingInterceptor();
+			loggingInterceptor.setLevel(Level.BODY);
+
 			// override the custom timeout in HTTPClient
 			try {
 				httpClient = classHttpClient.newBuilder()
@@ -310,6 +313,7 @@ public class ApiClient {
 						.readTimeout(readTimeout, TimeUnit.SECONDS)
 						.connectionPool(ApiClient.connectionPool)
 						.retryOnConnectionFailure(true)
+						.addInterceptor(loggingInterceptor)
 						.addInterceptor(new RetryInterceptor(this.apiRequestMetrics))
 						.eventListener(new NetworkEventListener(this.getNewRandomId(), System.nanoTime()))
 						.build();
