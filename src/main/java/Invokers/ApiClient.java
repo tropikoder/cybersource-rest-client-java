@@ -302,7 +302,13 @@ public class ApiClient {
 		}
 		else
 		{
-			loggingInterceptor = new HttpLoggingInterceptor();
+			HttpLoggingInterceptor.Logger lgr = new HttpLoggingInterceptor.Logger() {
+				@Override
+				public void log(String s) {
+					System.err.println(s);
+				}
+			};
+			loggingInterceptor = new HttpLoggingInterceptor(lgr);
 			loggingInterceptor.setLevel(Level.BODY);
 
 			// override the custom timeout in HTTPClient
