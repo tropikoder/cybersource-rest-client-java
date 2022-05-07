@@ -1201,8 +1201,6 @@ public class ApiClient {
 			responseCode = String.valueOf(response.code());
 			status = response.message();
 
-			logger.debug("Network Response :\n" + json.serialize(response.body()));
-
 			if(returnType == new TypeToken< Model.AccessTokenResponse >(){}.getType()) {
 				logger.debug("Response :\n" + response.peekBody(Long.MAX_VALUE).string());
 			}
